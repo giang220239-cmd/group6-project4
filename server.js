@@ -1,11 +1,13 @@
 const express = require("express");
 const app = express();
 
-// Middleware để parse JSON
+// Middleware parse JSON
 app.use(express.json());
 
-// Đọc PORT từ biến môi trường hoặc mặc định 3000
-const PORT = process.env.PORT || 3000;
+// Import user routes
+const userRoutes = require("./routes/userRoute");
+app.use("/api/users", userRoutes);
 
-// Chạy server
+// Server chạy cổng 3000
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
