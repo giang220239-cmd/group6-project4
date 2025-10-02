@@ -1,0 +1,22 @@
+﻿# Backend branch
+
+## Thông tin
+
+- Họ tên: Nguyễn Trường Giang
+- Nhóm: 6
+- Repo: group6-project4
+- Branch: backend
+
+## Vai trò
+
+- Phụ trách **backend** với Node.js/Express.
+- Xây dựng REST API cho module quản lý người dùng và sản phẩm.
+- Kết nối với cơ sở dữ liệu MongoDB.
+- Đảm bảo logic xử lý dữ liệu và bảo mật.
+
+## Công việc đã thực hiện
+
+- Tạo branch `backend`.
+- Viết file `README_backend.md` để khởi tạo branch.
+- Cấu hình môi trường ban đầu cho backend.
+
