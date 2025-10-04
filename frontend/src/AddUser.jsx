@@ -1,17 +1,25 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-function AddUser({ onUserAdded }) {
+function AddUser({ fetchUsers }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!name.trim()) {
+      alert("Tên không được để trống");
+      return;
+    }
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      alert("Email không hợp lệ");
+      return;
+    }
     try {
-      await axios.post("http://localhost:8080/api/users", { name, email }); // ✅ sửa port 8080
+      await axios.post("http://localhost:8080/api/users", { name, email }); // ✅ port 8080
       setName("");
       setEmail("");
-      if (onUserAdded) onUserAdded(); // reload danh sách
+      if (fetchUsers) fetchUsers(); // gọi lại để refresh danh sách
     } catch (err) {
       console.error("Lỗi khi thêm user:", err);
     }

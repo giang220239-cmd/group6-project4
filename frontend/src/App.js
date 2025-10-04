@@ -1,19 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import UserList from "./UserList";
-import AddUser from "./AddUser";
 
 function App() {
-  const [reload, setReload] = useState(false);
-
-  const handleUserAdded = () => {
-    setReload(!reload); // đổi state để reload UserList
-  };
-
   return (
-    <div>
+    <div className="App">
       <h1>Quản lý User</h1>
-      <AddUser onUserAdded={handleUserAdded} />
-      <UserList key={reload} />
+      <UserList /> {/* ✅ UserList đã bao gồm AddUser */}
     </div>
   );
 }
