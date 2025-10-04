@@ -8,6 +8,7 @@ const UserList = () => {
 
   // Lấy danh sách user khi load trang
   useEffect(() => {
+
     fetchUsers();
   }, []);
 
@@ -35,17 +36,51 @@ const UserList = () => {
     setEditingUser(null);
     setFormData({ name: "", email: "" });
     fetchUsers();
+    axios
+      .get("http://localhost:8080/api/users")
+      .then((res) => setUsers(res.data))
+      .catch((err) => console.error("Lỗi khi lấy users:", err));
+  }, []);
+
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`http://localhost:8080/api/users/${id}`);
+      setUsers(users.filter((u) => u._id !== id));
+    } catch (err) {
+      console.error("Lỗi khi xóa user:", err);
+    }
+  };
+
+  const handleEdit = async (id) => {
+    try {
+      const newName = prompt("Nhập tên mới:");
+      const newEmail = prompt("Nhập email mới:");
+      const res = await axios.put(`http://localhost:8080/api/users/${id}`, {
+        name: newName,
+        email: newEmail,
+      });
+      setUsers(users.map((u) => (u._id === id ? res.data : u)));
+    } catch (err) {
+      console.error("Lỗi khi sửa user:", err);
+    }
   };
 
   return (
     <div>
       <h2>Danh sách User</h2>
       <ul>
+
         {users.map((user) => (
           <li key={user._id}>
             {user.name} - {user.email}
             <button onClick={() => handleEdit(user)}>Sửa</button>
             <button onClick={() => handleDelete(user._id)}>Xóa</button>
+
+        {users.map((u) => (
+          <li key={u._id}>
+            {u.name} - {u.email}
+            <button onClick={() => handleEdit(u._id)}>Sửa</button>
+            <button onClick={() => handleDelete(u._id)}>Xóa</button>
           </li>
         ))}
       </ul>
