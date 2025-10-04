@@ -8,12 +8,12 @@ function AddUser({ onUserAdded }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:3000/api/users", { name, email });
+      await axios.post("http://localhost:8080/api/users", { name, email }); // ✅ sửa port 8080
       setName("");
       setEmail("");
-      if (onUserAdded) onUserAdded(); // gọi reload danh sách
+      if (onUserAdded) onUserAdded(); // reload danh sách
     } catch (err) {
-      console.error(err);
+      console.error("Lỗi khi thêm user:", err);
     }
   };
 
@@ -26,12 +26,14 @@ function AddUser({ onUserAdded }) {
           placeholder="Tên"
           value={name}
           onChange={(e) => setName(e.target.value)}
+          required
         />
         <input
           type="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          required
         />
         <button type="submit">Thêm</button>
       </form>
