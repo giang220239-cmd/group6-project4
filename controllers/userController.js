@@ -4,12 +4,14 @@ const User = require("../models/User");
 // GET /api/users
 const getUsers = async (req, res) => {
   try {
-    const users = await User.find().sort({ createdAt: -1 }); // lấy tất cả user, mới nhất trước
+    // Lấy tất cả user, sắp xếp mới nhất trước
+    const users = await User.find().sort({ createdAt: -1 });
     res.json(users);
   } catch (err) {
-    res
-      .status(500)
-      .json({ error: "Lỗi khi lấy danh sách user", detail: err.message });
+    res.status(500).json({
+      error: "Lỗi khi lấy danh sách users",
+      detail: err.message,
+    });
   }
 };
 
@@ -17,18 +19,24 @@ const getUsers = async (req, res) => {
 const createUser = async (req, res) => {
   try {
     const { name, email } = req.body;
+
     if (!name || !email) {
-      return res
-        .status(400)
-        .json({ error: "Vui lòng nhập đầy đủ name và email" });
+      return res.status(400).json({
+        error: "Tên và email là bắt buộc",
+      });
     }
 
+    // Tạo user mới trong MongoDB
     const newUser = new User({ name, email });
-    await newUser.save();
-    res.status(201).json(newUser);
+    const savedUser = await newUser.save();
+
+    res.status(201).json(savedUser);
   } catch (err) {
+    // Xử lý lỗi trùng email
     if (err.code === 11000) {
-      return res.status(400).json({ error: "Email đã tồn tại" });
+      return res
+        .status(400)
+        .json({ error: "Email đã tồn tại trong hệ thống" });
     }
     res.status(500).json({ error: "Lỗi khi tạo user", detail: err.message });
   }
@@ -52,9 +60,10 @@ const updateUser = async (req, res) => {
 
     res.json(updatedUser);
   } catch (err) {
-    res
-      .status(500)
-      .json({ error: "Lỗi khi cập nhật user", detail: err.message });
+    res.status(500).json({
+      error: "Lỗi khi cập nhật user",
+      detail: err.message,
+    });
   }
 };
 
@@ -71,7 +80,10 @@ const deleteUser = async (req, res) => {
 
     res.json({ message: "Xóa user thành công" });
   } catch (err) {
-    res.status(500).json({ error: "Lỗi khi xóa user", detail: err.message });
+    res.status(500).json({
+      error: "Lỗi khi xóa user",
+      detail: err.message,
+    });
   }
 };
 
