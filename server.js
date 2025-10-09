@@ -17,6 +17,11 @@ const authRoutes = require("./routes/auth"); // Thêm route auth.js
 app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes); // Thêm route auth.js
 
+// Đường dẫn gốc
+app.get("/", (req, res) => {
+  res.send("Server đang hoạt động! Vui lòng truy cập các API hoặc frontend.");
+});
+
 // Kết nối MongoDB
 mongoose
   .connect(process.env.MONGO_URI, {
