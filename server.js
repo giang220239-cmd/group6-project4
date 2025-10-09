@@ -9,9 +9,13 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Import user routes
+// Import routes
 const userRoutes = require("./routes/userRoute"); // chú ý tên file: "user.js" hoặc "userRoute.js"
+const authRoutes = require("./routes/auth"); // Thêm route auth.js
+
+// Sử dụng routes
 app.use("/api/users", userRoutes);
+app.use("/api/auth", authRoutes); // Thêm route auth.js
 
 // Kết nối MongoDB
 mongoose
