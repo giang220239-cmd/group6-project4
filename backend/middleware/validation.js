@@ -1,15 +1,23 @@
 const { body } = require("express-validator");
 
+<<<<<<< HEAD
 // Validation rules cho signup
+=======
+// Validation rules cho signup (simplified for testing)
+>>>>>>> database
 const signupValidation = [
   body("name")
     .trim()
     .notEmpty()
     .withMessage("Tên không được để trống")
     .isLength({ min: 2, max: 100 })
+<<<<<<< HEAD
     .withMessage("Tên phải có từ 2-100 ký tự")
     .matches(/^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠưăáâãèéêìíòóôõùúăđĩũơ\s]+$/)
     .withMessage("Tên chỉ được chứa chữ cái và khoảng trắng"),
+=======
+    .withMessage("Tên phải có từ 2-100 ký tự"),
+>>>>>>> database
 
   body("email")
     .trim()
@@ -25,6 +33,7 @@ const signupValidation = [
     .notEmpty()
     .withMessage("Mật khẩu không được để trống")
     .isLength({ min: 6, max: 128 })
+<<<<<<< HEAD
     .withMessage("Mật khẩu phải có từ 6-128 ký tự")
     .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/)
     .withMessage("Mật khẩu phải chứa ít nhất 1 chữ hoa, 1 chữ thường và 1 số"),
@@ -38,6 +47,20 @@ const signupValidation = [
       }
       return true;
     }),
+=======
+    .withMessage("Mật khẩu phải có từ 6-128 ký tự"),
+
+  // Temporarily comment out confirmPassword validation for easier testing
+  // body("confirmPassword")
+  //   .notEmpty()
+  //   .withMessage("Xác nhận mật khẩu không được để trống")
+  //   .custom((value, { req }) => {
+  //     if (value !== req.body.password) {
+  //       throw new Error("Xác nhận mật khẩu không khớp");
+  //     }
+  //     return true;
+  //   }),
+>>>>>>> database
 
   body("role")
     .optional()
@@ -55,9 +78,13 @@ const loginValidation = [
     .withMessage("Email không hợp lệ")
     .normalizeEmail(),
 
+<<<<<<< HEAD
   body("password")
     .notEmpty()
     .withMessage("Mật khẩu không được để trống"),
+=======
+  body("password").notEmpty().withMessage("Mật khẩu không được để trống"),
+>>>>>>> database
 ];
 
 // Validation rules cho update profile
@@ -67,7 +94,13 @@ const updateProfileValidation = [
     .trim()
     .isLength({ min: 2, max: 100 })
     .withMessage("Tên phải có từ 2-100 ký tự")
+<<<<<<< HEAD
     .matches(/^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠưăáâãèéêìíòóôõùúăđĩũơ\s]+$/)
+=======
+    .matches(
+      /^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠưăáâãèéêìíòóôõùúăđĩũơ\s]+$/
+    )
+>>>>>>> database
     .withMessage("Tên chỉ được chứa chữ cái và khoảng trắng"),
 
   body("email")
@@ -95,7 +128,13 @@ const changePasswordValidation = [
     .isLength({ min: 6, max: 128 })
     .withMessage("Mật khẩu mới phải có từ 6-128 ký tự")
     .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/)
+<<<<<<< HEAD
     .withMessage("Mật khẩu mới phải chứa ít nhất 1 chữ hoa, 1 chữ thường và 1 số"),
+=======
+    .withMessage(
+      "Mật khẩu mới phải chứa ít nhất 1 chữ hoa, 1 chữ thường và 1 số"
+    ),
+>>>>>>> database
 
   body("confirmNewPassword")
     .notEmpty()
@@ -147,4 +186,8 @@ module.exports = {
   changePasswordValidation,
   forgotPasswordValidation,
   resetPasswordValidation,
+<<<<<<< HEAD
 };
+=======
+};
+>>>>>>> database

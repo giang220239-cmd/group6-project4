@@ -1,15 +1,32 @@
+<<<<<<< HEAD
 import React from 'react';
+=======
+import React from "react";
+>>>>>>> database
 
 const Toast = ({ message, type, onClose }) => {
   if (!message) return null;
 
   const getIcon = () => {
     switch (type) {
+<<<<<<< HEAD
       case 'success': return '✅';
       case 'error': return '❌';
       case 'warning': return '⚠️';
       case 'info': return 'ℹ️';
       default: return '📢';
+=======
+      case "success":
+        return "✅";
+      case "error":
+        return "❌";
+      case "warning":
+        return "⚠️";
+      case "info":
+        return "ℹ️";
+      default:
+        return "📢";
+>>>>>>> database
     }
   };
 
@@ -26,4 +43,8 @@ const Toast = ({ message, type, onClose }) => {
   );
 };
 
+<<<<<<< HEAD
 export default Toast;
+=======
+export default Toast;
+>>>>>>> database

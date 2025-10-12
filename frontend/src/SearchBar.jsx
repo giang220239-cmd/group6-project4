@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import React from 'react';
+=======
+import React from "react";
+>>>>>>> database
 
 const SearchBar = ({ searchTerm, onSearchChange, totalUsers }) => {
   return (
@@ -13,9 +17,15 @@ const SearchBar = ({ searchTerm, onSearchChange, totalUsers }) => {
           onChange={(e) => onSearchChange(e.target.value)}
         />
         {searchTerm && (
+<<<<<<< HEAD
           <button 
             className="search-clear"
             onClick={() => onSearchChange('')}
+=======
+          <button
+            className="search-clear"
+            onClick={() => onSearchChange("")}
+>>>>>>> database
             title="Xóa tìm kiếm"
           >
             ✕
@@ -31,4 +41,8 @@ const SearchBar = ({ searchTerm, onSearchChange, totalUsers }) => {
   );
 };
 
+<<<<<<< HEAD
 export default SearchBar;
+=======
+export default SearchBar;
+>>>>>>> database

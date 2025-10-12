@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from 'react';
 
 const Header = ({ totalUsers }) => {
@@ -9,6 +10,19 @@ const Header = ({ totalUsers }) => {
       day: 'numeric',
       hour: '2-digit',
       minute: '2-digit'
+=======
+import React from "react";
+
+const Header = ({ totalUsers }) => {
+  const getCurrentTime = () => {
+    return new Date().toLocaleString("vi-VN", {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+>>>>>>> database
     });
   };
 
@@ -17,9 +31,17 @@ const Header = ({ totalUsers }) => {
       <div className="header-content">
         <div className="header-main">
           <h1 className="app-title">🏢 Hệ Thống Quản Lý User</h1>
+<<<<<<< HEAD
           <p className="app-subtitle">Quản lý thông tin người dùng một cách dễ dàng và hiệu quả</p>
         </div>
         
+=======
+          <p className="app-subtitle">
+            Quản lý thông tin người dùng một cách dễ dàng và hiệu quả
+          </p>
+        </div>
+
+>>>>>>> database
         <div className="header-info">
           <div className="time-info">
             <span className="time-icon">🕒</span>
@@ -35,4 +57,8 @@ const Header = ({ totalUsers }) => {
   );
 };
 
+<<<<<<< HEAD
 export default Header;
+=======
+export default Header;
+>>>>>>> database

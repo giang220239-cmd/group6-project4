@@ -13,10 +13,18 @@ const UserList = ({ users = [], onUsersChange, refreshUsers }) => {
   // Filter users based on search term
   const filteredUsers = useMemo(() => {
     if (!searchTerm) return users;
+<<<<<<< HEAD
     
     return users.filter(user => 
       user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       user.email.toLowerCase().includes(searchTerm.toLowerCase())
+=======
+
+    return users.filter(
+      (user) =>
+        user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        user.email.toLowerCase().includes(searchTerm.toLowerCase())
+>>>>>>> database
     );
   }, [users, searchTerm]);
 
@@ -25,15 +33,34 @@ const UserList = ({ users = [], onUsersChange, refreshUsers }) => {
     if (!window.confirm(`Bạn có chắc muốn xóa user "${name}"?`)) {
       return;
     }
+<<<<<<< HEAD
     
     try {
       await axios.delete(`http://localhost:8080/api/users/${id}`);
+=======
+
+    try {
+      const token = localStorage.getItem("token");
+      await axios.delete(`http://localhost:8080/api/users/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+>>>>>>> database
       const updatedUsers = users.filter((u) => u._id !== id);
       if (onUsersChange) {
         onUsersChange(updatedUsers);
       }
+<<<<<<< HEAD
       setMessage({ type: "success", text: `✅ Đã xóa user "${name}" thành công!` });
       
+=======
+      setMessage({
+        type: "success",
+        text: `✅ Đã xóa user "${name}" thành công!`,
+      });
+
+>>>>>>> database
       // Clear message after 3 seconds
       setTimeout(() => setMessage(""), 3000);
     } catch (err) {
@@ -57,7 +84,11 @@ const UserList = ({ users = [], onUsersChange, refreshUsers }) => {
   // Submit form cập nhật
   const handleUpdate = async (e) => {
     e.preventDefault();
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> database
     // Validation
     if (!formData.name.trim()) {
       setMessage({ type: "error", text: "Tên không được để trống" });
@@ -67,6 +98,7 @@ const UserList = ({ users = [], onUsersChange, refreshUsers }) => {
       setMessage({ type: "error", text: "Email không hợp lệ" });
       return;
     }
+<<<<<<< HEAD
     
     try {
       await axios.put(`http://localhost:8080/api/users/${editingUser}`, formData);
@@ -77,6 +109,30 @@ const UserList = ({ users = [], onUsersChange, refreshUsers }) => {
         refreshUsers(); // reload danh sách sau khi update
       }
       
+=======
+
+    try {
+      const token = localStorage.getItem("token");
+      await axios.put(
+        `http://localhost:8080/api/users/${editingUser}`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setEditingUser(null);
+      setFormData({ name: "", email: "" });
+      setMessage({
+        type: "success",
+        text: "✅ Cập nhật thông tin user thành công!",
+      });
+      if (refreshUsers) {
+        refreshUsers(); // reload danh sách sau khi update
+      }
+
+>>>>>>> database
       // Clear message after 3 seconds
       setTimeout(() => setMessage(""), 3000);
     } catch (err) {
@@ -89,33 +145,61 @@ const UserList = ({ users = [], onUsersChange, refreshUsers }) => {
     <>
       {/* Form thêm user */}
       <AddUser onUserAdded={refreshUsers} />
+<<<<<<< HEAD
       
+=======
+
+>>>>>>> database
       {/* Danh sách user */}
       <div className="users-container">
         <div className="card-header">
           <h2 className="card-title">👥 Danh Sách Users ({users.length})</h2>
         </div>
+<<<<<<< HEAD
         
         {/* Search bar */}
         {users.length > 0 && (
           <div style={{ padding: '1rem' }}>
             <SearchBar 
+=======
+
+        {/* Search bar */}
+        {users.length > 0 && (
+          <div style={{ padding: "1rem" }}>
+            <SearchBar
+>>>>>>> database
               searchTerm={searchTerm}
               onSearchChange={setSearchTerm}
               totalUsers={filteredUsers.length}
             />
           </div>
         )}
+<<<<<<< HEAD
         
         <div className="card-body" style={{ padding: 0 }}>
           {message && (
             <div style={{ padding: '1rem' }}>
               <div className={`alert ${message.type === 'success' ? 'alert-success' : 'alert-error'}`}>
+=======
+
+        <div className="card-body" style={{ padding: 0 }}>
+          {message && (
+            <div style={{ padding: "1rem" }}>
+              <div
+                className={`alert ${
+                  message.type === "success" ? "alert-success" : "alert-error"
+                }`}
+              >
+>>>>>>> database
                 {message.text}
               </div>
             </div>
           )}
+<<<<<<< HEAD
           
+=======
+
+>>>>>>> database
           {loading ? (
             <div className="loading">
               <div className="loading-spinner"></div>
@@ -145,16 +229,26 @@ const UserList = ({ users = [], onUsersChange, refreshUsers }) => {
                     <div className="user-name">{user.name}</div>
                     <div className="user-email">{user.email}</div>
                   </div>
+<<<<<<< HEAD
                   
                   <div className="user-actions">
                     <button 
+=======
+
+                  <div className="user-actions">
+                    <button
+>>>>>>> database
                       className="btn btn-warning btn-sm"
                       onClick={() => handleEdit(user)}
                       title="Sửa thông tin user"
                     >
                       ✏️ Sửa
                     </button>
+<<<<<<< HEAD
                     <button 
+=======
+                    <button
+>>>>>>> database
                       className="btn btn-danger btn-sm"
                       onClick={() => handleDelete(user._id, user.name)}
                       title="Xóa user"
@@ -172,11 +266,22 @@ const UserList = ({ users = [], onUsersChange, refreshUsers }) => {
       {/* Modal form sửa user */}
       {editingUser && (
         <div className="edit-form-overlay" onClick={handleCancelEdit}>
+<<<<<<< HEAD
           <div className="edit-form-container" onClick={(e) => e.stopPropagation()}>
             <div className="edit-form-header">
               <h3 className="edit-form-title">✏️ Chỉnh Sửa Thông Tin User</h3>
             </div>
             
+=======
+          <div
+            className="edit-form-container"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="edit-form-header">
+              <h3 className="edit-form-title">✏️ Chỉnh Sửa Thông Tin User</h3>
+            </div>
+
+>>>>>>> database
             <div className="edit-form-body">
               <form onSubmit={handleUpdate}>
                 <div className="form-group">
@@ -194,7 +299,11 @@ const UserList = ({ users = [], onUsersChange, refreshUsers }) => {
                     required
                   />
                 </div>
+<<<<<<< HEAD
                 
+=======
+
+>>>>>>> database
                 <div className="form-group">
                   <label className="form-label" htmlFor="edit-email">
                     📧 Email
@@ -210,9 +319,19 @@ const UserList = ({ users = [], onUsersChange, refreshUsers }) => {
                     required
                   />
                 </div>
+<<<<<<< HEAD
                 
                 <div className="form-actions">
                   <button type="button" className="btn btn-outline" onClick={handleCancelEdit}>
+=======
+
+                <div className="form-actions">
+                  <button
+                    type="button"
+                    className="btn btn-outline"
+                    onClick={handleCancelEdit}
+                  >
+>>>>>>> database
                     ❌ Hủy
                   </button>
                   <button type="submit" className="btn btn-success">

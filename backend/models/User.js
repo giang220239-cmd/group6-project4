@@ -1,5 +1,9 @@
 const mongoose = require("mongoose");
+<<<<<<< HEAD
 const bcrypt = require("bcryptjs");
+=======
+const bcrypt = require("bcrypt"); // Đổi sang bcrypt
+>>>>>>> database
 
 // Định nghĩa User schema với authentication fields
 const userSchema = new mongoose.Schema(
@@ -31,8 +35,19 @@ const userSchema = new mongoose.Schema(
       default: "user",
     },
     avatar: {
+<<<<<<< HEAD
       type: String,
       default: "", // URL ảnh đại diện
+=======
+      url: {
+        type: String,
+        default: "",
+      },
+      publicId: {
+        type: String,
+        default: "",
+      },
+>>>>>>> database
     },
     isActive: {
       type: Boolean,
@@ -80,16 +95,27 @@ userSchema.methods.comparePassword = async function (candidatePassword) {
 userSchema.methods.getResetPasswordToken = function () {
   // Tạo token random
   const resetToken = require("crypto").randomBytes(20).toString("hex");
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> database
   // Hash và set vào database
   this.resetPasswordToken = require("crypto")
     .createHash("sha256")
     .update(resetToken)
     .digest("hex");
+<<<<<<< HEAD
   
   // Set expire time (10 phút)
   this.resetPasswordExpire = Date.now() + 10 * 60 * 1000;
   
+=======
+
+  // Set expire time (10 phút)
+  this.resetPasswordExpire = Date.now() + 10 * 60 * 1000;
+
+>>>>>>> database
   return resetToken;
 };
 

@@ -2,16 +2,27 @@ import React, { useState, useEffect } from "react";
 import Header from "./Header";
 import UserList from "./UserList";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import Statistics from "./Statistics";
 import axios from "axios";
 import "./UserManagement.css";
 =======
+=======
+>>>>>>> database
 import AddUser from "./AddUser";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import SignUp from "./SignUp";
 import Login from "./Login";
 import Profile from "./Profile";
+<<<<<<< HEAD
 >>>>>>> 48dd825bfff98048e7767be9821847b60563c5e3
+=======
+import Admin from "./Admin";
+import ForgotPassword from "./ForgotPassword";
+import ResetPassword from "./ResetPassword";
+import "./UserManagement.css";
+import axios from "axios"; // Import axios để sử dụng
+>>>>>>> database
 
 function App() {
   const [users, setUsers] = useState([]);
@@ -21,9 +32,17 @@ function App() {
     try {
       setLoading(true);
       const res = await axios.get("http://localhost:8080/api/users");
+<<<<<<< HEAD
       setUsers(res.data);
     } catch (err) {
       console.error("Lỗi khi lấy users:", err);
+=======
+      // API giờ trả về mảng users trực tiếp
+      setUsers(res.data || []);
+    } catch (err) {
+      console.error("Lỗi khi lấy users:", err);
+      setUsers([]); // Set empty array nếu có lỗi
+>>>>>>> database
     } finally {
       setLoading(false);
     }
@@ -34,6 +53,7 @@ function App() {
   }, []);
 
   return (
+<<<<<<< HEAD
 <<<<<<< HEAD
     <div className="app-container">
       <Header totalUsers={users.length} />
@@ -78,6 +98,33 @@ function App() {
       </Routes>
     </Router>
 >>>>>>> 48dd825bfff98048e7767be9821847b60563c5e3
+=======
+    <Router>
+      <div className="app-container">
+        <Header totalUsers={users.length} />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <UserList
+                users={users}
+                loading={loading}
+                onUsersChange={setUsers}
+                refreshUsers={fetchUsers}
+              />
+            }
+          />
+          <Route path="/add-user" element={<AddUser />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
+        </Routes>
+      </div>
+    </Router>
+>>>>>>> database
   );
 }
 

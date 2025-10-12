@@ -6,10 +6,17 @@ const { validationResult } = require("express-validator");
 const getUsers = async (req, res) => {
   try {
     const { page = 1, limit = 10, search = "", role = "" } = req.query;
+<<<<<<< HEAD
     
     // Build query
     let query = {};
     
+=======
+
+    // Build query
+    let query = {};
+
+>>>>>>> database
     // Search by name or email
     if (search) {
       query.$or = [
@@ -17,21 +24,33 @@ const getUsers = async (req, res) => {
         { email: { $regex: search, $options: "i" } },
       ];
     }
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> database
     // Filter by role
     if (role) {
       query.role = role;
     }
+<<<<<<< HEAD
     
     // Calculate pagination
     const skip = (page - 1) * limit;
     
+=======
+
+    // Calculate pagination
+    const skip = (page - 1) * limit;
+
+>>>>>>> database
     // Get users with pagination
     const users = await User.find(query)
       .select("-password -resetPasswordToken -resetPasswordExpire")
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(parseInt(limit));
+<<<<<<< HEAD
     
     // Get total count
     const total = await User.countDocuments(query);
@@ -46,6 +65,14 @@ const getUsers = async (req, res) => {
         limit: parseInt(limit),
       },
     });
+=======
+
+    // Get total count
+    const total = await User.countDocuments(query);
+
+    // Trả về mảng users trực tiếp để frontend dễ xử lý
+    res.json(users);
+>>>>>>> database
   } catch (err) {
     console.error("Get users error:", err);
     res.status(500).json({
@@ -75,9 +102,13 @@ const createUser = async (req, res) => {
   } catch (err) {
     // Xử lý lỗi trùng email
     if (err.code === 11000) {
+<<<<<<< HEAD
       return res
         .status(400)
         .json({ error: "Email đã tồn tại trong hệ thống" });
+=======
+      return res.status(400).json({ error: "Email đã tồn tại trong hệ thống" });
+>>>>>>> database
     }
     res.status(500).json({ error: "Lỗi khi tạo user", detail: err.message });
   }
