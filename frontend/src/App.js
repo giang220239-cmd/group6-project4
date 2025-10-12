@@ -5,7 +5,7 @@ function App() {
   return (
     <div className="App">
       <h1>Quản lý User</h1>
-      <UserList /> {/* ✅ UserList đã bao gồm AddUser */}
+      <UserList /> {/* ✅ UserList bao gồm có AddUser */}
     </div>
   );
 }
