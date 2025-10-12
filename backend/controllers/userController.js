@@ -1,16 +1,84 @@
 // controllers/userController.js
 const User = require("../models/User");
+const { validationResult } = require("express-validator");
 
-// GET /api/users
+// GET /api/users - Chỉ Admin mới có thể xem danh sách tất cả users
 const getUsers = async (req, res) => {
   try {
-    // Lấy tất cả user, sắp xếp mới nhất trước
-    const users = await User.find().sort({ createdAt: -1 });
+    const { page = 1, limit = 10, search = "", role = "" } = req.query;
+<<<<<<< HEAD
+    
+    // Build query
+    let query = {};
+    
+=======
+
+    // Build query
+    let query = {};
+
+>>>>>>> database
+    // Search by name or email
+    if (search) {
+      query.$or = [
+        { name: { $regex: search, $options: "i" } },
+        { email: { $regex: search, $options: "i" } },
+      ];
+    }
+<<<<<<< HEAD
+    
+=======
+
+>>>>>>> database
+    // Filter by role
+    if (role) {
+      query.role = role;
+    }
+<<<<<<< HEAD
+    
+    // Calculate pagination
+    const skip = (page - 1) * limit;
+    
+=======
+
+    // Calculate pagination
+    const skip = (page - 1) * limit;
+
+>>>>>>> database
+    // Get users with pagination
+    const users = await User.find(query)
+      .select("-password -resetPasswordToken -resetPasswordExpire")
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(parseInt(limit));
+<<<<<<< HEAD
+    
+    // Get total count
+    const total = await User.countDocuments(query);
+    
+    res.json({
+      success: true,
+      data: users,
+      pagination: {
+        current: parseInt(page),
+        pages: Math.ceil(total / limit),
+        total,
+        limit: parseInt(limit),
+      },
+    });
+=======
+
+    // Get total count
+    const total = await User.countDocuments(query);
+
+    // Trả về mảng users trực tiếp để frontend dễ xử lý
     res.json(users);
+>>>>>>> database
   } catch (err) {
+    console.error("Get users error:", err);
     res.status(500).json({
-      error: "Lỗi khi lấy danh sách users",
-      detail: err.message,
+      success: false,
+      message: "Lỗi khi lấy danh sách users",
+      error: process.env.NODE_ENV === "development" ? err.message : undefined,
     });
   }
 };
@@ -34,9 +102,13 @@ const createUser = async (req, res) => {
   } catch (err) {
     // Xử lý lỗi trùng email
     if (err.code === 11000) {
+<<<<<<< HEAD
       return res
         .status(400)
         .json({ error: "Email đã tồn tại trong hệ thống" });
+=======
+      return res.status(400).json({ error: "Email đã tồn tại trong hệ thống" });
+>>>>>>> database
     }
     res.status(500).json({ error: "Lỗi khi tạo user", detail: err.message });
   }
